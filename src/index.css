@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.navElem {
+    color: #41e0fd !important;
+    border: 1px solid #414042;
+    transition: all .7s ease;
+    cursor: context-menu !important;
+}
+
+.navElem:hover {
+    text-shadow: 0 0 30px #F1F2F2;
+}
+
+.btnbrd {
+    color: #41e0fd;
+    background: none;
+    outline: none !important;
+    border: none !important;
+}
+
+.chatBlock {
+    border-radius: 5px;
+    width: 100%;
+    height: 70vh;
+    overflow-y: auto;
+}
+
+.loginBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 400px;
+    height: 300px;
+}
+
+.userName{
+    margin: 0 !important;
+    padding: 5px 10px;
+}
