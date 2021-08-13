@@ -41,16 +41,6 @@ const Chat = () => {
             setInpVal('');
             inpref.current.focus();
         }
-        // if (inpVal.trim()) {
-        //     firestore.collection('messages').add({
-        //         uid: user.uid,
-        //         displayName: user.displayName,
-        //         text: inpVal,
-        //         createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        //     });
-        // }
-        // setInpVal('');
-        // inpref.current.focus();
     }
 
     if (loading) return <Loader />;
