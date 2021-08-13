@@ -12,10 +12,8 @@ const Login = () => {
         event.preventDefault();
         try {
             const provider = new firebase.auth.GoogleAuthProvider();
-            const { user } = await auth.signInWithPopup(provider);
-            console.log(user);
+            await auth.signInWithPopup(provider);
         } catch (e) {
-            console.log(e);
         }
 
     };

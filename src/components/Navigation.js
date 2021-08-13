@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../utils/routeConsts';
+// import { NavLink } from 'react-router-dom';
+// import { LOGIN_ROUTE } from '../utils/routeConsts';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import Context from '../context/Context';
 
@@ -20,9 +20,10 @@ const Navigation = () => {
                                 <button className='btnbrd'
                                         onClick={() => auth.signOut()}>Logout</button>
                                 :
-                                <NavLink to={LOGIN_ROUTE}>
-                                    <button className='btnbrd'>Login</button>
-                                </NavLink>
+                                null
+                                // <NavLink to={LOGIN_ROUTE}>
+                                //     <button className='btnbrd'>Login</button>
+                                // </NavLink>
                         }
                     </Nav>
                 </Container>

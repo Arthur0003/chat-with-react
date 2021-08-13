@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Context from '../context/Context';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Button, Card, Container, Form } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import Loader from '../loader/Loader';
 import firebase from 'firebase';
 
 const Chat = () => {
+    const inpref = useRef();
     const { auth, firestore } = useContext(Context);
     const [ user ] = useAuthState(auth);
     const [ inpVal, setInpVal ] = useState('');
@@ -15,21 +16,48 @@ const Chat = () => {
     );
 
     const sendMessage = () => {
-        firestore.collection('messages').add({
-            uid: user.uid,
-            displayName: user.displayName,
-            text: inpVal,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-
+        if (inpVal.trim()) {
+            firestore.collection('messages').add({
+                uid: user.uid,
+                displayName: user.displayName,
+                text: inpVal,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+        }
         setInpVal('');
+        inpref.current.focus();
     };
+
+    const sendMessageByKey = (event) => {
+        if (event.key === 'Enter') {
+            if (inpVal.trim()) {
+                firestore.collection('messages').add({
+                    uid: user.uid,
+                    displayName: user.displayName,
+                    text: inpVal,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            }
+            setInpVal('');
+            inpref.current.focus();
+        }
+        // if (inpVal.trim()) {
+        //     firestore.collection('messages').add({
+        //         uid: user.uid,
+        //         displayName: user.displayName,
+        //         text: inpVal,
+        //         createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        //     });
+        // }
+        // setInpVal('');
+        // inpref.current.focus();
+    }
 
     if (loading) return <Loader />;
 
     return (
         <Container className='p-0'>
-            <h2 className='userName p-0'>{user.displayName}</h2>
+            <h2 className='userName p-0'>{user?.displayName}</h2>
             <div className='container justify-content-center mt-5 p-0'
                  style={{ height: window.innerHeight - 58 }}
             >
@@ -37,9 +65,8 @@ const Chat = () => {
                     {messages.map((message, idx) =>
                         <Card style={{
                             width: 'fit-content',
-                            border: user.uid === message.uid ? '3px solid red' : '3px solid blue',
-                            marginLeft: user.uid === message.uid ? 'auto' : 0,
-                            marginTop: user.uid === message.uid ? 'auto' : 'auto',
+                            border: user?.uid === message.uid ? '3px solid red' : '3px solid blue',
+                            marginLeft: user?.uid === message.uid ? 'auto' : 0
                         }}
                               key={idx}
                               className='p-1 mb-2 '>
@@ -58,10 +85,17 @@ const Chat = () => {
                     <Form.Control type='text' value={inpVal}
                                   onChange={e => setInpVal(e.target.value)}
                                   className='me-3 border-secondary'
-                        // style={{ border: '1px solid gray', marginRight: 10 }}
+                                  placeholder='Type your message...'
+                                  onKeyPress={sendMessageByKey}
+                                  ref={inpref}
                     />
-                    <Button onClick={sendMessage}
-                            className='flex-grow-1 w-25'>Send</Button>
+                    <Button
+                        onClick={sendMessage}
+                        className='flex-grow-1 w-25'
+                    >
+                        Send
+
+                    </Button>
                 </div>
             </div>
         </Container>
