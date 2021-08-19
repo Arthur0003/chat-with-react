@@ -34,5 +34,3 @@ const Navigation = () => {
 
 export default Navigation;
 
-//#41e0fd
-//style={{color: '#41e0fd'}}
