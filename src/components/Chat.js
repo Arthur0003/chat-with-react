@@ -14,6 +14,7 @@ const Chat = () => {
     const [messages, loading] = useCollectionData(
         firestore.collection('messages').orderBy('createdAt')
     );
+    const g = 1;
 
     const sendMessage = () => {
         if (inpVal.trim()) {
